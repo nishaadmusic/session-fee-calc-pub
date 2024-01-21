@@ -5,7 +5,7 @@
 <meta name="keywords" content="Nishaad Music, Music, Bhopal">
 <meta name="author" content="Nishaad">
 <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-		<title>Music Session Fee Calculator</title>
+		<title>Book a Home Session</title>
 		<style>
 body {
   font-family: sans-serif;
@@ -112,7 +112,8 @@ button:disabled:hover {
 </style>
 	</head>
 	<body>
-		<h1>Music Session Fee Calculator</h1>
+		<h1>NMC - Music Sessions at Home</h1>
+		<p style="text-align:center; color:#000; margin-bottom:20px">Check the fee for home sessions and book easily from our website.</p>
 		<form id="feeForm">
 			<label for="distance">Enter Distance (in km):</label>
 				<input type="number" id="distance" placeholder="Distance from Nishaad Music Classes">
@@ -170,7 +171,7 @@ button:disabled:hover {
 		discount = 0;
 	}
 	function booking(){
-	var rzpnotes="NMC Music session for " + numStudents + " student(s). Discount Percent: " + discountPercent.toFixed(0);
+	var rzpnotes="NMC - Home Music session for " + numStudents + " student(s). Discount Percent: " + discountPercent.toFixed(0);
 	var rzpurl="https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view?session_fee="+totalFee+"&notes="+encodeURI(rzpnotes);
 	window.open(rzpurl);
 	rzpurl="";
