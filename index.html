@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Music Session Fee Calculator</title>
+		<style>
+body {
+  font-family: sans-serif;
+  background-color: #ffde59;
+}
+
+h1 {
+  text-align: center;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+form input{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 90%;
+  margin-bottom: 20px;
+  padding-right: -50px;
+  transition: border-color 0.4s ease-in-out;
+}
+
+form input:hover{
+border-color: #000;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+button {
+  background-color: #ffde59;
+  color: #000;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-color: #ffde59;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.1s ease,border-color 0.1s ease-in-out;
+}
+button:hover {
+  border-color: #000;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #ffffff;
+  border-color: #fff
+}
+
+button:active:after {
+  background-color: #ff0500;
+  border-color: #fff
+  transition: 0.5s
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+  font-weight: none;
+}
+button:disabled:hover {
+  opacity: 0.6;
+  cursor: default;
+  font-weight: none;
+  background-color: #ffde59;
+  border: 2px solid;
+  border-color: #ffde59;
+  border-radius: 3px;
+}
+
+#feeResult {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+#perHeadFeeResult {
+  text-align: center;
+  margin-top: 10px;
+}
+#discountShowoff {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+#totalFee {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+</style>
+	</head>
+	<body>
+		<h1>Music Session Fee Calculator</h1>
+		<form id="feeForm">
+			<label for="distance">Enter Distance (in km):</label>
+				<input type="number" id="distance" placeholder="Distance from Nishaad Music Classes">
+			<label for="students">Number of Students:</label>
+				<input type="number" id="students" placeholder="Number of students joining the session">
+			<br>
+			<button type="button" onclick="calculateFee()">Check Fee</button>
+			<button id="booking_btn" type="button" onclick="booking()" disabled>Book</button>
+		</form>
+				<!--<div id="discountShowoff"></div>-->
+		<div id="discountShowoff"></div>
+		<div id="feeResult">Total session fee is <s id="flatTotalFee"></s> <span id="totalFee" font-size="40px"> </span></div>
+		<div id="perHeadFeeResult"></div>
+<script>
+	var totalFee = 0;	
+	var distance = parseFloat(document.getElementById("distance").value);
+	var numStudents = parseInt(document.getElementById("students").value);
+	var baseFee = 500;
+	var flatTotalFee = 0;
+	var minimumPerHeadFee = 250;
+	var rzpConvenienceFee = 0;
+	var freeDistance = 5;
+	var extraFeePerKM = 10;
+	var additionalFee = 0;
+	var discountPercent = 10;
+	var maxDiscountPercent = 45;
+	var discount = 0;
+//Define Objects
+	var ObjDiscountShowoff = document.getElementById("discountShowoff");
+	var ObjperHeadFeeResult = document.getElementById("perHeadFeeResult");
+	var ObjfeeResult = document.getElementById("feeResult");
+	var ObjflatTotalFee = document.getElementById("flatTotalFee");
+	var ObjtotalFee = document.getElementById("totalFee");
+	var objBooking_btn = document.getElementById("booking_btn");
+  ObjfeeResult.style.display = "none";
+	function resetAll(){
+	//Clear Divs
+		ObjDiscountShowoff.style.display = "none";
+		ObjperHeadFeeResult.style.display = "none";
+		ObjfeeResult.style.display = "none";
+		ObjflatTotalFee.style.display = "none";
+		objBooking_btn.innerText = "Book";
+		objBooking_btn.disabled = true;
+		objBooking_btn.style.fontWeight = '500';
+	//Reset variables
+		baseFee = 500;
+		flatTotalFee = 0;
+		minimumPerHeadFee = 250;
+		rzpConvenienceFee = 0;
+		freeDistance = 5;
+		extraFeePerKM = 10;
+		additionalFee = 0;
+		discountPercent = 10;
+		maxDiscountPercent = 45;
+		discount = 0;
+	}
+	function booking(){
+	var rzpnotes="NMC Music session for " + numStudents + " student(s). Discount Percent: " + discountPercent.toFixed(0);
+	var rzpurl="https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view?session_fee="+totalFee+"&notes="+encodeURI(rzpnotes);
+	window.open(rzpurl);
+	rzpurl="";
+	}			
+    function calculateFee() {
+	resetAll();
+      distance = parseFloat(document.getElementById("distance").value);
+      numStudents = parseInt(document.getElementById("students").value);
+	  
+// Input validation
+      if (distance <= 0) {
+        alert("Please enter a valid distance greater than 0.");
+		resetAll();
+		return; // Exit function if invalid distance
+      }
+	  if (distance > 30) {
+        alert("That's too far! Call us and we'll see what we can do about it.");
+        window.open("tel:+919304843436"); 
+		resetAll();
+        return; // Exit function if large distance
+      }
+
+      if (numStudents <= 0) {
+        alert("Please enter a valid number of students greater than 0.");
+		resetAll();
+        return;
+		// Exit function if invalid number of students
+      }
+      if (distance > freeDistance) {
+	  //Calculating roundtrip charges
+        additionalFee = (distance - freeDistance) * extraFeePerKM * 2;
+      }
+ 
+      // Apply discount based on number of students
+      if (numStudents > 1) {
+        //discount = baseFee * discountPercent * (numStudents - 1);
+        //discountPercent = ((discountPercent) * ((numStudents - 1)))-(numStudents*2);
+		discountPercent = ((discountPercent) * ((numStudents - 1)) * 3)/(numStudents+1);
+		discountPercent = Math.ceil(Math.min(discountPercent, maxDiscountPercent));
+		//discount per student
+		discount = baseFee * (discountPercent/100);
+		discount = Math.ceil(discount/10)*10;
+		additionalFee = additionalFee/numStudents;
+      }
+  var totalFeePerStudent = baseFee + additionalFee;
+  totalFeePerStudent = Math.ceil(totalFeePerStudent/10)*10;
+  
+  flatTotalFee = totalFeePerStudent * numStudents;
+  totalFee = (totalFeePerStudent - discount) * numStudents;
+  
+// Calculate minimum per head fee
+  var minimumTotalFee = minimumPerHeadFee * numStudents;
+// Enforce minimum per head fee
+  totalFee = Math.max(totalFee, minimumTotalFee);
+  
+  //rzpConvenienceFee = 0.0237*totalFee;
+  //totalFee=totalFee+rzpConvenienceFee;
+if (totalFee>0){
+  //ObjfeeResult.innerText = "Total session fee is ₹" + flatTotalFee.toFixed(2) + totalFee.toFixed(2);
+  ObjfeeResult.style.display = "block";
+  var perHeadFee = totalFee/numStudents;
+  if (numStudents>1){
+  ObjDiscountShowoff.innerText = "Hurray! For "+numStudents+" students, we offer you a " + discountPercent.toFixed(0) + "% discount.";
+  ObjDiscountShowoff.style.display = "block";
+  ObjperHeadFeeResult.innerText = "per head fee is ₹" + perHeadFee.toFixed(0);
+  ObjperHeadFeeResult.style.display = "block";
+  ObjflatTotalFee.style.display = "inline";
+  ObjflatTotalFee.innerText = " ₹"+ flatTotalFee.toFixed(0);
+  }
+  ObjtotalFee.innerText = " ₹"+ totalFee.toFixed(0);
+  objBooking_btn.innerText = "Book - ₹" + totalFee.toFixed(0);
+  objBooking_btn.disabled = false;
+  objBooking_btn.style.fontWeight = 'bold';
+  }
+  }
+  </script>
+</body>
+</html>
