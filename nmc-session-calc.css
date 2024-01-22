@@ -1,0 +1,106 @@
+        body {
+            font-family: sans-serif;
+            background-color: #ffde59;
+        }
+
+        h1 {
+            text-align: center;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            width: 90%;
+            margin-bottom: 20px;
+            padding-right: -50px;
+            transition: border-color 0.4s ease-in-out;
+        }
+
+        form input:hover {
+            border-color: #000;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        button {
+            background-color: #ffde59;
+            color: #000;
+            padding: 10px 20px;
+            border: 2px solid;
+            border-color: #ffde59;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.1s ease, border-color 0.1s ease-in-out;
+        }
+
+        button:hover {
+            border-color: #000;
+            cursor: pointer;
+        }
+
+        button:active {
+            background-color: #ffffff;
+            border-color: #fff
+        }
+
+        button:active:after {
+            background-color: #ff0500;
+            border-color: #fff transition: 0.5s
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: default;
+            font-weight: none;
+        }
+
+        button:disabled:hover {
+            opacity: 0.6;
+            cursor: default;
+            font-weight: none;
+            background-color: #ffde59;
+            border: 2px solid;
+            border-color: #ffde59;
+            border-radius: 3px;
+        }
+
+        #feeResult {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        #perHeadFeeResult {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #discountShowoff {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        #totalFee {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
