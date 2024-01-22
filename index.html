@@ -138,6 +138,7 @@ button:disabled:hover {
 	var rzpConvenienceFee = 0;
 	var freeDistance = 5;
 	var extraFeePerKM = 10;
+ var maxDistance = 20;
 	var additionalFee = 0;
 	var discountPercent = 10;
 	var maxDiscountPercent = 45;
@@ -188,9 +189,9 @@ button:disabled:hover {
 		resetAll();
 		return; // Exit function if invalid distance
       }
-	  if (distance > 30) {
+	  if (distance > maxDistance) {
         alert("That's too far! Call us and we'll see what we can do about it.");
-        window.open("tel:+919304843436"); 
+        //window.open("https://links.nishaad.in/call"); 
 		resetAll();
         return; // Exit function if large distance
       }
@@ -203,7 +204,7 @@ button:disabled:hover {
       }
       if (distance > freeDistance) {
 	  //Calculating roundtrip charges
-        additionalFee = (distance - freeDistance) * extraFeePerKM * 2;
+        additionalFee = Math.pow((distance - freeDistance),1.1) * extraFeePerKM * 2;
       }
  
       // Apply discount based on number of students
