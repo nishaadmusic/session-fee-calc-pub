@@ -28,11 +28,12 @@
             </style>
   </head>
 <body>
-
+<svg id="fader"></svg>
   <script>
     var session_fee=0;
     var notes="";
     var rzpurl="";
+	var rzpFrame = document.getElementById('url');
     console.log("Script start...");
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -45,12 +46,12 @@
             console.log(notes);
     console.log("Script end...");
     rzpurl="https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view?session_fee="+session_fee+"&notes="+notes;
-    var rzpFrame = document.getElementById('url');
+    rzpFrame = document.getElementById('url');
     rzpFrame.src = rzpurl;
     console.log("iframe loaded");
-
+	
     rzpFrame.onload = function() {
-    document.getElementById('fader').style.opacity=0;
+    document.getElementById("fader").style.opacity="0";
     console.log("Fader");
     };
     };
