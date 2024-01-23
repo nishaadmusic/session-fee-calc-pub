@@ -9,12 +9,32 @@
                 <title>Make Payment</title>
         <link rel="stylesheet" type="text/css" href="/nmc-session-calc.css"/>
     <style>
-    body {
+body {
     margin: 0;
 }
       </style>
   </head>
 <body>
+
+  <script>
+    var session_fee=0;
+    var notes="";
+    var rzpurl="";
+    console.log("Script start...");
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+        
+    console.log("Listener added");
+            session_fee = urlParams.get('session_fee');
+            console.log(session_fee);
+    
+            notes = urlParams.get('notes');
+            console.log(notes);
+    console.log("Script end...");
+    rzpurl="https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view?session_fee="+session_fee+"&notes="+notes;
+    document.getElementById('url').src = rzpurl;
+    };
+    </script>
 <!--<div style="display:block; width: vw; overflow: hidden;">
 <iframe style="height:100vh; overflow: hidden; display: block;" src="https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view"
   width="100%"
@@ -23,10 +43,11 @@
 </div>-->
 
 <div style="height:100vh;overflow: hidden; display: block">
-  <embed type="text/html" src="https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view"
+  <embed id="url" type="text/html" src=""
   width="100%"
   height="100%">
 </div>
+
 
 </body>
 </html>
