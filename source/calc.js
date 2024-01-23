@@ -46,7 +46,7 @@
         function booking() {
             var rzpnotes = "NMC - Home Music session for " + numStudents + " student(s). Discount Percent: " + discountPercent.toFixed(0);
             //var rzpurl = "https://pages.razorpay.com/pl_NRI03gAVMKVOPE/view?session_fee=" + totalFee + "&notes=" + encodeURI(rzpnotes);
-            var rzpurl = "https://calc.homesessions.nishaad.in/payment/home-session-rzp.html?session_fee=" + totalFee + "&notes=" + encodeURI(rzpnotes);
+            var rzpurl = "/payment/home-session-rzp.html?session_fee=" + totalFee + "&notes=" + encodeURI(rzpnotes);
             window.open(rzpurl);
             rzpurl = "";
         }
